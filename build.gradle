@@ -2,12 +2,12 @@ plugins {
     id 'org.springframework.boot' version '2.4.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
-    id 'java'
+    id 'scala'
 }
 
 group = 'org.lafeuille.scalaspringboot'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '15'
+sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
@@ -19,10 +19,12 @@ ext {
 }
 
 dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.4'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.cloud:spring-cloud-starter'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.scalatest:scalatest_2.13:3.2.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
