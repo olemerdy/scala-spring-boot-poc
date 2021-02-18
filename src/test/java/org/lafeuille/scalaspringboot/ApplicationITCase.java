@@ -14,6 +14,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,14 +34,17 @@ public class ApplicationITCase {
     @Test
     public void contextLoads() {
         Mono<Event> saved = repository.save(new Event());
-        assertThat(saved.block()).hasFieldOrProperty("id");
+        StepVerifier.create(saved)
+                .expectNextMatches(e -> Objects.nonNull(e.getId()))
+                .verifyComplete();
         Flux<Event> all = repository.findAll();
-        assertThat(all.collectList().block()).hasSize(1);
+        StepVerifier.create(all)
+                .expectNextCount(1)
+                .verifyComplete();
     }
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         public void initialize(ConfigurableApplicationContext context) {
-            System.out.println(neo4jContainer.getBoltUrl());
             TestPropertyValues.of(
                     "spring.neo4j.uri=" + neo4jContainer.getBoltUrl(),
                     "spring.neo4j.authentication.username=" + "neo4j",
