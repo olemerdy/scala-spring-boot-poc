@@ -28,7 +28,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.scalatest:scalatest_2.13:3.2.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:neo4j'

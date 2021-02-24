@@ -1,23 +1,19 @@
-package org.lafeuille.scalaspringboot;
+package org.lafeuille.scalaspringboot.domain.event;
 
 import org.junit.jupiter.api.Test;
-import org.lafeuille.scalaspringboot.domain.event.Event;
-import org.lafeuille.scalaspringboot.domain.event.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.Neo4jContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataNeo4jTest
 @Testcontainers
-public class ApplicationITCase {
+public class EventRepositoryITCase {
 
     @Container
     private static final Neo4jContainer<?> neo4jContainer = new Neo4jContainer<>("neo4j");
@@ -33,11 +29,8 @@ public class ApplicationITCase {
     private EventRepository repository;
 
     @Test
-    public void contextLoads() {
-        var saved = repository.save(new Event());
-        assertThat(saved).extracting("id").isNotNull();
-
-        var all = repository.findAll();
-        assertThat(all).hasSize(1);
+    public void save() {
+        var event = repository.save(new Event());
+        assertThat(event).extracting("id").isNotNull();
     }
 }

@@ -6,10 +6,11 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory._
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.{Bean, Configuration, Scope}
 
+import java.time.Clock
+
 @Configuration
 class InfraConfig {
 
-  import java.time.Clock
 
   @Bean
   @ConditionalOnMissingBean
